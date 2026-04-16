@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ticket-hub
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: 321
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tickethub
+    username: postgres
+    password: 321
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  # Spring Cloud Stream Config (RabbitMQ)
+#  cloud:
+#    stream:
+#      function:
+#        definition: bookingCreatedSupplier;paymentConfirmedConsumer
+#      bindings:
+#        bookingCreated-out-0:
+#          destination: booking.created.exchange
+#          content-type: application/json
+#        paymentConfirmed-in-0:
+#          destination: payment.confirmed.queue
+#          group: booking-service-group
+
+# Swagger/OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
