@@ -1,11 +1,11 @@
 package com.bernardomecabo.ticket_hub.domain.booking;
 
+import com.bernardomecabo.ticket_hub.application.commands.booking.CreateBookingCommand;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -29,6 +29,9 @@ public class Booking {
     @Column(name = "seat_id", nullable = false)
     private String seatId;
 
+    @Column(name = "price", nullable = false, precision = 19, scale = 2)
+    private BigDecimal price;
+
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
@@ -36,11 +39,13 @@ public class Booking {
 
     protected Booking() {}
 
-    public static Booking reserve(UUID eventId, UUID customerId, String seatId){
+    public static Booking reserve(CreateBookingCommand command){
         Booking booking = new Booking();
         booking.id = UUID.randomUUID();
-        booking.eventId = eventId;
-        booking.customerId = customerId;
+        booking.eventId = command.eventId();
+        booking.customerId = command.customerId();
+        booking.seatId = command.seatId();
+        booking.price = command.price(); // !! todo: learn safer ways
         booking.status = BookingStatus.PENDING;
         booking.createdAt = LocalDateTime.now();
         return booking;

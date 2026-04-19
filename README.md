@@ -3,7 +3,7 @@
 TicketHub is a backend system designed to manage high-traffic event seat reservations. It focuses on data integrity, concurrency control, and clean architecture, showcasing modern software engineering patterns.
 
 ## 🛠️ Technical Stack
-* **Runtime:** Java 26 (Utilizing Records, Pattern Matching, and Sealed Classes)
+* **Runtime:** Java 25 (Utilizing Records, Pattern Matching, and Sealed Classes)
 * **Framework:** Spring Boot 4.0.5
 * **Database:** PostgreSQL (Relational integrity & ACID transactions)
 * **Messaging:** RabbitMQ (Asynchronous processing & Event-driven workflows)

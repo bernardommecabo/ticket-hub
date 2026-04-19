@@ -17,6 +17,11 @@ spring:
     password: 321
     driver-class-name: org.postgresql.Driver
 
+  mongodb:
+    uri: mongodb://admin:321@localhost:27017/tickethub_queries?authSource=admin
+    representation:
+      uuid: standard
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:

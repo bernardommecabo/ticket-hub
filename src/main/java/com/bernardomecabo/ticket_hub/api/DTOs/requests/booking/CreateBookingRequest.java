@@ -9,8 +9,8 @@ import java.util.UUID;
 
 public record CreateBookingRequest(
         @NotNull UUID eventId,
-        @NotNull UUID userId,
-        @NotBlank String seatNumber,
+        @NotNull UUID customerId,
+        @NotBlank String seatId,
         @Positive BigDecimal price
         ) {
 }
