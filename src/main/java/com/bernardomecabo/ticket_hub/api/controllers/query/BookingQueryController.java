@@ -1,7 +1,8 @@
 package com.bernardomecabo.ticket_hub.api.controllers.query;
 
+import com.bernardomecabo.ticket_hub.api.DTOs.responses.booking.BookingListResponse;
 import com.bernardomecabo.ticket_hub.application.queries.booking.GetBookingsByCustomerId;
-import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.documents.BookingProjection;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,10 @@ public class BookingQueryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BookingProjection>> getBookingsByCustomerId(@RequestParam UUID customerId){
-        List<BookingProjection> response = getBookingsByCustomerId.ProcessTask(customerId);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    @Operation(summary = "Get all bookings by customer ID", description = "")
+    public ResponseEntity<List<BookingListResponse>> getBookingsByCustomerId(@RequestParam UUID customerId){
+        List<BookingListResponse> responses = getBookingsByCustomerId.ProcessTask(customerId);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
 }

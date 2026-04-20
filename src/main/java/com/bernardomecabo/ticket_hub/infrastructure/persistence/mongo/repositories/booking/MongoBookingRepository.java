@@ -8,6 +8,5 @@ import java.util.UUID;
 
 public interface MongoBookingRepository extends MongoRepository<BookingProjection, String > {
     BookingProjection findById(UUID id);
-    List<BookingProjection> findByEventId(UUID eventId);
     List<BookingProjection> findByCustomerId(UUID customerId);
 }

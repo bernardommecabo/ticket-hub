@@ -1,5 +1,6 @@
 package com.bernardomecabo.ticket_hub.application.queries.booking;
 
+import com.bernardomecabo.ticket_hub.api.DTOs.responses.booking.BookingListResponse;
 import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.documents.BookingProjection;
 import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories.booking.MongoBookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,10 @@ public class GetBookingsByCustomerId {
         this.mongoRepository = mongoRepository;
     }
 
-    public List<BookingProjection> ProcessTask(UUID customerId){
-        return mongoRepository.findByCustomerId(customerId);
+    public List<BookingListResponse> ProcessTask(UUID customerId){
+        return mongoRepository.findByCustomerId(customerId)
+                .stream()
+                .map(BookingListResponse::new)
+                .toList();
     }
 }
