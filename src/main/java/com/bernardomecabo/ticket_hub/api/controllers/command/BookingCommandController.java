@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/bookings")
-@Tag(name = "Booking",description = "")
+@Tag(name = "Booking")
 public class BookingCommandController {
 
     private final CreateBookingHandler createBookingHandler;
@@ -34,7 +34,7 @@ public class BookingCommandController {
     }
 
     @PostMapping
-    @Operation(summary = "Create a Booking", description = "")
+    @Operation(summary = "Create a Booking")
     public ResponseEntity<CreateBookingResponse> createBooking(@RequestBody @Valid CreateBookingRequest request){
         CreateBookingCommand command = new CreateBookingCommand(request);
         CreateBookingResponse bookingResponse = createBookingHandler.ProcessTask(command);
@@ -50,7 +50,7 @@ public class BookingCommandController {
     }
 
     @DeleteMapping
-    @Operation(summary = "Delete a Booking", description = "")
+    @Operation(summary = "Delete a Booking")
     public ResponseEntity<?> deleteBooking(@RequestBody @Valid DeleteBookingRequest request){
         DeleteBookingCommand command = new DeleteBookingCommand(request);
         return deleteBookingHandler.ProcessTask(command);
