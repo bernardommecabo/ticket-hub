@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/bookings")
-@Tag(name = "Booking", description = "")
+@Tag(name = "Booking")
 public class BookingQueryController {
 
     private final GetBookingsByCustomerId getBookingsByCustomerId;
@@ -26,7 +26,7 @@ public class BookingQueryController {
     }
 
     @GetMapping
-    @Operation(summary = "Get all bookings by customer ID", description = "")
+    @Operation(summary = "Get all bookings by customer ID")
     public ResponseEntity<List<BookingListResponse>> getBookingsByCustomerId(@RequestParam UUID customerId){
         List<BookingListResponse> responses = getBookingsByCustomerId.ProcessTask(customerId);
         return new ResponseEntity<>(responses, HttpStatus.OK);

@@ -4,7 +4,6 @@ import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.documents.
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public record BookingListResponse(
         String seatId,
