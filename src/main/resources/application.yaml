@@ -17,10 +17,10 @@ spring:
     password: 321
     driver-class-name: org.postgresql.Driver
 
-  mongodb:
-    uri: mongodb://admin:321@localhost:27017/tickethub_queries?authSource=admin
-    representation:
-      uuid: standard
+  data:
+    mongodb:
+      uri: mongodb://admin:321@localhost:27017/tickethub_queries?authSource=admin
+      uuid-representation: standard
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -33,18 +33,42 @@ spring:
         jdbc:
           time_zone: UTC
 
-  # Spring Cloud Stream Config (RabbitMQ)
-#  cloud:
-#    stream:
-#      function:
-#        definition: bookingCreatedSupplier;paymentConfirmedConsumer
-#      bindings:
-#        bookingCreated-out-0:
-#          destination: booking.created.exchange
-#          content-type: application/json
-#        paymentConfirmed-in-0:
-#          destination: payment.confirmed.queue
-#          group: booking-service-group
+  cloud:
+    stream:
+      # --- General Cloud Stream Configuration ---
+      function:
+        definition: syncBooking # Defines which functional beans (Consumers/Suppliers) to bind
+      bindings:
+          # --- Output Binding (Producer/Publisher) ---
+        syncBooking-out-0:
+          destination: booking.sync.exchange # Target RabbitMQ Exchange name
+          content-type: application/json     # Automatically serializes Java records to JSON
+        # --- Input Binding (Consumer/Subscriber) ---
+        syncBooking-in-0:
+          destination: booking.sync.exchange # Source Exchange to consume from
+          group: tickethub-projection-group  # Creates a durable queue with this name (Consumer Group)
+          content-type: application/json     # Automatically deserializes JSON back to Java DTOs
+          consumer:
+            max-attempts: 3                  # Retry processing up to 3 times on failure
+            back-off-initial-interval: 5000 # Espera 5 segundos entre tentativas
+            back-off-max-interval: 30000
+            back-off-multiplier: 2.0
+
+      rabbit:
+        # --- RabbitMQ Specific Bindings ---
+        bindings:
+          syncBooking-out-0:
+            producer:
+              exchangeType: topic            # Standard for flexible event routing
+              declareExchange: true          # Automatically creates the exchange if it doesn't exist
+
+          syncBooking-in-0:
+            consumer:
+              bindQueue: true                # Binds the queue to the exchange automatically
+              declareExchange: true          # Ensures exchange exists before binding
+              queueNameGroupOnly: true       # Uses only the 'group' name for the queue (Clean naming)
+              auto-bind-dlq: false            # Automatically creates a Dead Letter Queue for failed messages
+              requeue-rejected: true
 
 # Swagger/OpenAPI
 springdoc:

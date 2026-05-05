@@ -4,10 +4,9 @@ import com.bernardomecabo.ticket_hub.api.DTOs.responses.booking.UpdateBookingRes
 import com.bernardomecabo.ticket_hub.application.commands.booking.UpdateBookingCommand;
 import com.bernardomecabo.ticket_hub.domain.booking.Booking;
 import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.documents.BookingProjection;
-import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories.booking.MongoBookingRepository;
+import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories.MongoBookingRepository;
 import com.bernardomecabo.ticket_hub.infrastructure.persistence.postgre.repositories.booking.BookingRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UpdateBookingHandler {
 
-    @Autowired
     private final BookingRepository repository;
-
-    @Autowired
     private final MongoBookingRepository mongoRepository;
 
     public UpdateBookingHandler(BookingRepository repository, MongoBookingRepository mongoRepository) {
