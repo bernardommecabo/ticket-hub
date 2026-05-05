@@ -1,6 +1,7 @@
 package com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.documents;
 
 import com.bernardomecabo.ticket_hub.domain.booking.Booking;
+import com.bernardomecabo.ticket_hub.infrastructure.messaging.events.BookingCreatedEvent;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -39,4 +40,17 @@ public class BookingProjection{
         this.createdAt = booking.getCreatedAt();
         this.lastUpdated = LocalDateTime.now();
     }
+
+    public BookingProjection(BookingCreatedEvent event) {
+        this.id = event.id();
+        this.eventId = event.eventId();
+        this.customerId = event.customerId();
+        this.seatId = event.seatId();
+        this.status = event.status();
+        this.price = event.price();
+        this.createdAt = event.createdAt();
+        this.lastUpdated = event.lastUpdated();
+    }
+
+
 }

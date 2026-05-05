@@ -1,7 +1,7 @@
 package com.bernardomecabo.ticket_hub.application.queries.booking;
 
 import com.bernardomecabo.ticket_hub.api.DTOs.responses.booking.BookingListResponse;
-import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories.booking.MongoBookingRepository;
+import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories.MongoBookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

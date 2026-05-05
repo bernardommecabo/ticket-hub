@@ -1,4 +1,4 @@
-package com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories.booking;
+package com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories;
 
 import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.documents.BookingProjection;
 import org.springframework.data.mongodb.repository.MongoRepository;

@@ -3,10 +3,9 @@ package com.bernardomecabo.ticket_hub.application.commands.booking.handlers;
 import com.bernardomecabo.ticket_hub.application.commands.booking.DeleteBookingCommand;
 import com.bernardomecabo.ticket_hub.domain.booking.Booking;
 import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.documents.BookingProjection;
-import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories.booking.MongoBookingRepository;
+import com.bernardomecabo.ticket_hub.infrastructure.persistence.mongo.repositories.MongoBookingRepository;
 import com.bernardomecabo.ticket_hub.infrastructure.persistence.postgre.repositories.booking.BookingRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,10 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DeleteBookingHandler {
 
-    @Autowired
     private final BookingRepository repository;
-
-    @Autowired
     private final MongoBookingRepository mongoRepository;
 
     public DeleteBookingHandler(BookingRepository repository, MongoBookingRepository mongoRepository) {
